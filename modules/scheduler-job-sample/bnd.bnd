@@ -1,0 +1,3 @@
+Bundle-Name: scheduler-job-sample
+Bundle-SymbolicName: scheduler.job.sample
+Bundle-Version: 1.0.0
