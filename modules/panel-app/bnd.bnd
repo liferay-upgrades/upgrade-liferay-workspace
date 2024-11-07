@@ -1,0 +1,7 @@
+Bundle-Name: panel-app
+Bundle-SymbolicName: panel.app
+Bundle-Version: 1.0.0
+Export-Package: panel.app.constants
+Provide-Capability:\
+	liferay.language.resources;\
+		resource.bundle.base.name="content.Language"
