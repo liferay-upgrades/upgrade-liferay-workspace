@@ -1,0 +1,5 @@
+dependencies {
+	compileOnly group: "org.osgi", name: "org.osgi.annotation.versioning"
+
+	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
+}
