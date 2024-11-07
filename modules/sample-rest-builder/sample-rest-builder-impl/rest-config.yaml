@@ -1,0 +1,11 @@
+apiDir: "../sample-rest-builder-api/src/main/java"
+apiPackagePath: "sample.rest.builder"
+application:
+    baseURI: "/sample-rest-builder"
+    className: "SampleRestBuilderApplication"
+    name: "SampleRestBuilder"
+author: "me"
+clientDir: "../sample-rest-builder-client/src/main/java"
+testDir: "../sample-rest-builder-test/src/testIntegration/java"
+generateGraphQL: false
+generateBatch: false

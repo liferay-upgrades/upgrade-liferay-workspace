@@ -1,0 +1,3 @@
+Bundle-Name: sample-rest-builder-client
+Bundle-SymbolicName: sample.rest.builder.client
+Bundle-Version: 1.0.0

@@ -1,0 +1,146 @@
+components:
+    schemas:
+        Bar:
+            properties:
+                active:
+                    type: boolean
+                dateCreated:
+                    format: date
+                    readOnly: true
+                    type: string
+                dateModified:
+                    format: date
+                    readOnly: true
+                    type: string
+                description:
+                    type: string
+                id:
+                    format: int64
+                    readOnly: true
+                    type: integer
+                name:
+                    type: string
+            type: object
+info:
+    description: "SampleRestBuilder REST API"
+    license:
+        name: "Apache 2.0"
+        url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+    title: "SampleRestBuilder"
+    version: v1.0
+openapi: 3.0.1
+paths:
+    "/bars":
+        post:
+            operationId: postBar
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Bar"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Bar"
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Bar"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Bar"
+            tags: ["Bar"]
+    "/bars/{barId}":
+        delete:
+            operationId: deleteBar
+            parameters:
+                - in: path
+                  name: barId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                204:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Bar"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Bar"
+            tags: ["Bar"]
+        get:
+            operationId: getBar
+            parameters:
+                - in: path
+                  name: barId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Bar"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Bar"
+            tags: ["Bar"]
+        patch:
+            operationId: patchBar
+            parameters:
+                - in: path
+                  name: barId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Bar"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Bar"
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Bar"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Bar"
+            tags: ["Bar"]
+        put:
+            operationId: putBar
+            parameters:
+                - in: path
+                  name: barId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Bar"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Bar"
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Bar"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Bar"
+            tags: ["Bar"]
