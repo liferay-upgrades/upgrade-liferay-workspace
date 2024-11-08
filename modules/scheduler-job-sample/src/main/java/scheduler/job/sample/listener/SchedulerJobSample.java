@@ -16,7 +16,11 @@ import com.liferay.portal.kernel.scheduler.Trigger;
 import com.liferay.portal.kernel.scheduler.TriggerFactory;
 
 import java.util.Map;
+import java.util.function.Supplier;
 
+import com.liferay.portal.kernel.search.IndexWriterHelperUtil;
+import com.liferay.portal.kernel.search.Document;
+import com.liferay.portal.kernel.search.SearchException;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
@@ -59,6 +63,24 @@ public class SchedulerJobSample extends BaseMessageListener {
 	@Override
 	protected void doReceive(Message message) throws Exception {
 		_log.info("Doing something cool");
+	}
+
+	private void testAutoReplacement() throws SearchException {
+		String paramName0 = "";
+		long paramName1 = 1;
+		Document paramName2 = null;
+		boolean paramName3 = true;
+
+		IndexWriterHelperUtil.updateDocument(paramName0, paramName1, paramName2, paramName3);
+	}
+
+	private static void testSuggestion() throws SearchException {
+		Supplier<String> stringSupplier = () -> "paramName0";
+		long paramName1 = 1;
+		Supplier<Document> documentSupplier = () -> null;
+		boolean paramName3 = true;
+
+		IndexWriterHelperUtil.updateDocument(stringSupplier.get(), paramName1, documentSupplier.get(), paramName3);
 	}
 
 	@Reference
