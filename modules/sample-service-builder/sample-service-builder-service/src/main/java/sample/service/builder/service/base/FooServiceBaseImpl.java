@@ -24,7 +24,6 @@ import org.osgi.service.component.annotations.Reference;
 
 import sample.service.builder.model.Foo;
 import sample.service.builder.service.FooService;
-import sample.service.builder.service.FooServiceUtil;
 import sample.service.builder.service.persistence.FooPersistence;
 
 /**
@@ -45,11 +44,10 @@ public abstract class FooServiceBaseImpl
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never modify or reference this class directly. Use <code>FooService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>FooServiceUtil</code>.
+	 * Never modify or reference this class directly. Use <code>FooService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>sample.service.builder.service.FooServiceUtil</code>.
 	 */
 	@Deactivate
 	protected void deactivate() {
-		FooServiceUtil.setService(null);
 	}
 
 	@Override
@@ -60,8 +58,6 @@ public abstract class FooServiceBaseImpl
 	@Override
 	public void setAopProxy(Object aopProxy) {
 		fooService = (FooService)aopProxy;
-
-		FooServiceUtil.setService(fooService);
 	}
 
 	/**
