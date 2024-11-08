@@ -71,7 +71,7 @@ public class SchedulerJobSample extends BaseMessageListener {
 		Document paramName2 = null;
 		boolean paramName3 = true;
 
-		IndexWriterHelperUtil.updateDocument(paramName0, paramName1, paramName2, paramName3);
+		IndexWriterHelperUtil.updateDocument(paramName1, paramName2);
 	}
 
 	private static void testSuggestion() throws SearchException {
