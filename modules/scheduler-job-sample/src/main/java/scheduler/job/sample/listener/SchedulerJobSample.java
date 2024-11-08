@@ -80,7 +80,7 @@ public class SchedulerJobSample extends BaseMessageListener {
 		Supplier<Document> documentSupplier = () -> null;
 		boolean paramName3 = true;
 
-		IndexWriterHelperUtil.updateDocument(stringSupplier.get(), paramName1, documentSupplier.get(), paramName3);
+		IndexWriterHelperUtil.updateDocument(paramName1, documentSupplier.get());
 	}
 
 	@Reference
