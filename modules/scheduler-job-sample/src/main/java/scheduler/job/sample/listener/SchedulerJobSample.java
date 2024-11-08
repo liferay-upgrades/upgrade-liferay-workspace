@@ -1,5 +1,6 @@
 package scheduler.job.sample.listener;
 
+import com.liferay.petra.function.UnsafeRunnable;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.BaseMessageListener;
@@ -11,8 +12,10 @@ import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.scheduler.SchedulerEngineHelper;
 import com.liferay.portal.kernel.scheduler.SchedulerEntry;
 import com.liferay.portal.kernel.scheduler.SchedulerEntryImpl;
+import com.liferay.portal.kernel.scheduler.SchedulerJobConfiguration;
 import com.liferay.portal.kernel.scheduler.TimeUnit;
 import com.liferay.portal.kernel.scheduler.Trigger;
+import com.liferay.portal.kernel.scheduler.TriggerConfiguration;
 import com.liferay.portal.kernel.scheduler.TriggerFactory;
 
 import java.util.Map;
@@ -29,40 +32,26 @@ import scheduler.job.sample.listener.configuration.SchedulerJobSampleConfigurati
 
 @Component(
 		configurationPid = "scheduler.job.sample.listener.configuration.SchedulerJobSampleConfiguration",
-		immediate = true,
-		service = MessageListener.class
+		service = SchedulerJobConfiguration.class
 )
-public class SchedulerJobSample extends BaseMessageListener {
+public class SchedulerJobSample implements SchedulerJobConfiguration {
 
 	@Activate
 	protected void activate(Map<String, Object> properties) {
 		_schedulerJobSampleConfiguration = ConfigurableUtil.createConfigurable(
 				SchedulerJobSampleConfiguration.class, properties);
-
-		Class<?> clazz = getClass();
-
-		String className = clazz.getName();
-
-		Trigger trigger = _triggerFactory.createTrigger(
-				className, className, null, null,
-				_schedulerJobSampleConfiguration.checkJobInterval(),
-				TimeUnit.MINUTE);
-
-		SchedulerEntry schedulerEntry = new SchedulerEntryImpl(
-				className, trigger);
-
-		_schedulerEngineHelper.register(
-				this, schedulerEntry, DestinationNames.SCHEDULER_DISPATCH);
-	}
-
-	@Deactivate
-	protected void deactivate() {
-		_schedulerEngineHelper.unregister(this);
 	}
 
 	@Override
-	protected void doReceive(Message message) throws Exception {
-		_log.info("Doing something cool");
+	public TriggerConfiguration getTriggerConfiguration() {
+		return TriggerConfiguration.createTriggerConfiguration(
+				_schedulerJobSampleConfiguration.checkJobInterval(),
+				TimeUnit.MINUTE);
+	}
+
+	@Override
+	public UnsafeRunnable<Exception> getJobExecutorUnsafeRunnable() {
+		return () -> _log.info("Doing something cool");
 	}
 
 	private void testAutoReplacement() throws SearchException {
@@ -82,12 +71,6 @@ public class SchedulerJobSample extends BaseMessageListener {
 
 		IndexWriterHelperUtil.updateDocument(paramName1, documentSupplier.get());
 	}
-
-	@Reference
-	private SchedulerEngineHelper _schedulerEngineHelper;
-
-	@Reference
-	private TriggerFactory _triggerFactory;
 
 	private volatile SchedulerJobSampleConfiguration _schedulerJobSampleConfiguration;
 
